@@ -1,0 +1,15 @@
+<div>
+    <button (click)="addList()" mat-raised-button color="primary">Add List</button>
+</div>
+<div class="newListForm"> 
+    <form #newListForm="ngForm" (ngSubmit)="onSubmit(newListForm)" *ngIf="listTitleToggle">
+        <mat-form-field >
+            <input matInput name="listTitle" ngModel type="text" placeholder="Enter List Title" required>
+        </mat-form-field>
+        <button type="submit" mat-raised-button color="primary">Add Title</button>
+    </form>
+</div>
+
+<div class="list-container" cdkDropListGroup>
+    <app-list *ngFor="let list of lists;let i=index" [listTitle]="list.title" [listIndex]="i" [listArray]="lists"></app-list>
+</div>

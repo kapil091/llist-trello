@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="list" cdkDropList [(cdkDropListData)]="items" (cdkDropListDropped)="drop($event)">
+        <div *ngIf="!newCardAddition">
+            <div class="listHeader">
+                <span class="listTitle">{{listTitle}} </span>
+                <button type="button" class="close" aria-label="Close" style="float: right;"
+                    (click)="removeList(listIndex)">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <mat-card class="list-item" *ngFor="let item of items;let i = index" cdkDrag>
+                <mat-card-content class="card-list" id={{i}}>
+                    <div>
+                        <span class="listCardTitle">{{item.title}} </span>
+                        <button type="button" class="close" aria-label="Close" style="float: right;"
+                            (click)="remove(i)">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div>
+                        <p>{{item.desc}} </p>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+            <div class="add-item">
+                <mat-icon aria-hidden="false" class="plusIcon" (click)="addCardToggle()">
+                    add_circle
+                </mat-icon>
+            </div>
+        </div>
+        <div *ngIf="newCardAddition">
+            <form #newItemForm="ngForm" (ngSubmit)="onSubmit(newItemForm)" *ngIf="showAddCardDetails">
+                <div>
+                    <div>
+                        <mat-form-field>
+                            <input matInput name="cardTitle" ngModel type="text" placeholder="Enter card Title" required>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <mat-form-field>
+                            <textarea matInput placeholder="Enter card Description" name="cardDescription" ngModel
+                                required></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <button mat-raised-button type="submit" color="primary">Create Card</button>
+                <button mat-raised-button (click)="removeToggle()" color="primary">Cancel</button>
+            </form>
+        </div>
+    </div>
+    
+</div>
